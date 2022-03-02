@@ -13,5 +13,3 @@ ADD scripts/run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 
 ADD scripts/entrypoint.sh /usr/local/sbin/
-
-# RUN echo OPTS="--disable-ssl-menu -s '/:root:root:HOME:/usr/local/shellinabox/cmd.sh \"\\\${url}\"'" >> /etc/sysconfig/shellinabox
