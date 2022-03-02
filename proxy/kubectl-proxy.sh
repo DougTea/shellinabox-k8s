@@ -10,4 +10,4 @@ if [ ! -z $SERVICE_PORT ];then
     port=$SERVICE_PORT
 fi
 
-/kubectl proxy --server="$API_SERVER" --certificate-authority="$CA_CRT" --token="$TOKEN" --accept-paths='^.*' --port="$port"
+/kubectl proxy --disable-filter=true --server="$API_SERVER" --certificate-authority="$CA_CRT" --token="$TOKEN" --accept-paths='^.*' --port="$port"
