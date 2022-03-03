@@ -8,7 +8,13 @@ hex()
 }
 
 echo "Preparing container .."
-COMMAND="/usr/bin/shellinaboxd --debug --no-beep --disable-peer-check -u shellinabox -g shellinabox -c /var/lib/shellinabox -p ${SIAB_PORT}  -s '/:root:root:HOME:/usr/bin/run.sh \"\${url}\"' --user-css ${SIAB_USERCSS}"
+COMMAND="/usr/bin/shellinaboxd --debug --no-beep --disable-peer-check"
+
+if [ "$SIAB_SSL" != "true" ]; then
+	COMMAND+=" -t"
+fi
+
+COMMAND+=" -u shellinabox -g shellinabox -c /var/lib/shellinabox -p ${SIAB_PORT}  -s '/:root:root:HOME:/usr/bin/run.sh \"\${url}\"' --user-css ${SIAB_USERCSS}"
 
 if [ "$SIAB_PKGS" != "none" ]; then
 	set +e
@@ -17,10 +23,6 @@ if [ "$SIAB_PKGS" != "none" ]; then
 	/usr/bin/apt-get clean
 	/bin/rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 	set -e
-fi
-
-if [ "$SIAB_SSL" != "true" ]; then
-	COMMAND+=" -t"
 fi
 
 if [ "${SIAB_ADDUSER}" == "true" ]; then
