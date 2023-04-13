@@ -25,10 +25,10 @@ fi
 
 if [ "$cmd" = "_" ]; then
   echo "No command passed,trying to infer from container"
-  if /usr/local/bin/kubectl -n $namespace exec $pod -c $container -- test -f /bin/bash &>/dev/null; then
+  if $COMMAND -- test -f /bin/bash &>/dev/null; then
     echo "'/bin/bash' found in container,use it"
     cmd="/bin/bash"
-  elif /usr/local/bin/kubectl -n $namespace exec $pod -c $container -- test -f /bin/sh &>/dev/null; then
+  elif $COMMAND -- test -f /bin/sh &>/dev/null; then
     echo "'/bin/sh' found in container,use it"
     cmd="/bin/sh"
   else

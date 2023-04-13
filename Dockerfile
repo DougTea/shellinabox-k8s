@@ -1,8 +1,9 @@
-FROM sspreitzer/shellinabox:ubuntu
+#FROM sspreitzer/shellinabox:ubuntu
+FROM harbor.westwell-research.com/well_spiking/shellinabox:ubuntu
 
-RUN apt update
+RUN apt-get update
 
-RUN apt install -y python2-minimal
+RUN apt-get install -y python2-minimal
 
 ADD binary/kubectl /usr/local/bin/kubectl
 

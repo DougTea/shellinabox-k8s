@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 kubectl_proxy:
-  image: wellharbor.westwell-research.com/k8s/kubectl-proxy:latest
+  image: harbor.westwell-research.com/k8s/kubectl-proxy:latest
   resources:
     limits:
       cpu: 1
@@ -12,7 +12,7 @@ kubectl_proxy:
 replicaCount: 1
 
 image:
-  repository: wellharbor.westwell-research.com/well_spiking/shellinabox
+  repository: harbor.westwell-research.com/well_spiking/shellinabox
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "ubuntu"
@@ -58,7 +58,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: ""
+    - host: "rm-dev.westwell-research.com"
       paths:
         - path: /spiking/shell(/|$)(.*)
           pathType: ImplementationSpecific
