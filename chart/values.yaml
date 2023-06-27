@@ -12,10 +12,10 @@ kubectl_proxy:
 replicaCount: 1
 
 image:
-  repository: harbor.westwell-research.com/well_spiking/shellinabox
-  pullPolicy: IfNotPresent
+  repository: harbor.westwell-research.com/wellspiking/train/shellinabox
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "ubuntu"
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -47,6 +47,9 @@ service:
   type: ClusterIP
   port: 4200
 
+serviceAccount:
+  create: true
+
 ingress:
   enabled: true
   className: "nginx"
@@ -58,7 +61,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: "rm-dev.westwell-research.com"
+    - host: "train.westwell-research.com"
       paths:
         - path: /spiking/shell(/|$)(.*)
           pathType: ImplementationSpecific
