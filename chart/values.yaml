@@ -6,7 +6,7 @@ kubectl_proxy:
   image: harbor.westwell-research.com/k8s/kubectl-proxy:latest
   resources:
     limits:
-      cpu: 1
+      cpu: 200m
       memory: 256Mi
 
 replicaCount: 1
