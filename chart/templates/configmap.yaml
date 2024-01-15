@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "shellinabox.fullname" . }}
+  labels:
+    {{- include "shellinabox.labels" . | nindent 4 }}
+data:
+  {{- range $k,$v := .Values.kubeconfigs }}
+  {{ $k }}.config: |
+    {{- $v | nindent 4 }}
+  {{- end }}

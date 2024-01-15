@@ -9,6 +9,8 @@ kubectl_proxy:
       cpu: 200m
       memory: 256Mi
 
+kubeconfigs: []
+
 replicaCount: 1
 
 image:

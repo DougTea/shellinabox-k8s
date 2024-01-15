@@ -57,12 +57,23 @@ spec:
           readinessProbe:
             tcpSocket:
               port: http
+          volumeMounts:
+            {{- with .Values.kubeconfigs }}
+            - name: kubeconfigs
+              mountPath: /etc/config
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        {{- with .Values.kubeconfigs }}
+        - name: kubeconfigs
+          configMap:
+            name: {{ include "shellinabox.fullname" $ }}
+        {{- end }}
       {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}

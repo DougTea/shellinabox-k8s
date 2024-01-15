@@ -8,14 +8,19 @@ fi
 
 uri=$1
 
-arr=($(/usr/bin/python2.7 -c "import urlparse;q=urlparse.parse_qs(urlparse.urlparse(\"$uri\").query);print q[\"namespace\"][0],q[\"pod\"][0],q[\"container\"][0] if \"container\" in q else \"_\",q[\"command\"][0] if \"command\" in q else \"_\";"))
+arr=($(/usr/bin/python2.7 -c "import urlparse;q=urlparse.parse_qs(urlparse.urlparse(\"$uri\").query);print q[\"namespace\"][0],q[\"pod\"][0],q[\"container\"][0] if \"container\" in q else \"_\",q[\"command\"][0] if \"command\" in q else \"_\",q[\"cluster\"][0] if \"cluster\" in q else \"_\";"))
 
 namespace=${arr[0]}
 pod=${arr[1]}
 container=${arr[2]}
 cmd=${arr[3]}
+cluster=${arr[4]}
 
-COMMAND="/usr/local/bin/kubectl -n $namespace exec $pod -it"
+COMMAND="/usr/local/bin/kubectl -n $namespace"
+if [ "$cluster" != "_" ];then
+  COMMAND="${COMMAND} --kubeconfig /etc/config/${cluster}.config"
+fi
+COMMAND="${COMMAND} exec $pod -it"
 
 if [ "$container" != "_" ];then
   COMMAND+=" -c $container"
